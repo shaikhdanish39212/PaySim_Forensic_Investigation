@@ -16,14 +16,6 @@ frontend/dist/
 .oxlint/
 .vite/
 
-# Datasets and Large Binary Files (>100MB rejected by GitHub)
-data/raw/
-data/processed/
-outputs/predictions/
-*.csv
-!outputs/reports/*.csv
-!outputs/cases/*.csv
-
 # Logs & Databases
 *.log
 *.sqlite3
