@@ -1,0 +1,57 @@
+{
+    "step": 9,
+    "title": "Final Forensic Evaluation",
+    "configuration": {
+        "model": "Audited Random Forest",
+        "suspicion_threshold": 0.95,
+        "temporal_window_steps": 24,
+        "account_relationship_rule": "Same source account OR same destination account OR cross origin/destination relationship",
+        "model_retrained": false,
+        "threshold_changed": false
+    },
+    "dataset_evaluation": {
+        "prediction_records": 606500,
+        "unique_prediction_transaction_ids": 606500,
+        "suspicious_seeds": 480,
+        "candidate_cases": 480,
+        "evidence_records": 491
+    },
+    "case_evaluation": {
+        "structurally_complete_cases": 480,
+        "case_completeness_rate_percent": 100.0,
+        "cases_with_context": 11,
+        "context_enrichment_rate_percent": 2.2917,
+        "suspicious_seed_evidence_records": 480,
+        "contextual_evidence_records": 11,
+        "context_evidence_ratio_percent": 2.2403,
+        "average_evidence_per_case": 1.0229,
+        "average_contextual_evidence_per_case": 0.0229
+    },
+    "traceability": {
+        "seed_traceability_percent": 100.0,
+        "evidence_traceability_percent": 100.0,
+        "finding_traceability_percent": 100.0
+    },
+    "multi_seed_analysis": {
+        "multi_seed_cases": 0,
+        "multi_seed_case_rate_percent": 0.0
+    },
+    "window_selection": {
+        "selected_window_steps": 24,
+        "cases_with_context_at_selected_window": 11,
+        "context_enrichment_at_selected_window_percent": 2.29166666666666
+    },
+    "consistency_check": {
+        "step8_step9_consistency": "PASSED",
+        "case_count_consistent": true,
+        "context_case_count_consistent": true,
+        "context_transaction_count_consistent": true,
+        "multi_seed_count_consistent": true
+    },
+    "interpretation": {
+        "important_limitation": "PaySim provides transactional evidence only and does not contain external digital forensic artifacts such as device, IP, email, authentication or CCTV data.",
+        "case_completeness_interpretation": "Structural completeness indicates that generated case records contain the required case, seed, evidence and finding references. It does not establish completeness of real-world forensic evidence.",
+        "context_interpretation": "Contextual evidence coverage remains limited even after using the selected temporal window.",
+        "seed_interpretation": "A suspicious seed represents an analytically flagged transaction and should not be interpreted as proof of criminal activity."
+    }
+}

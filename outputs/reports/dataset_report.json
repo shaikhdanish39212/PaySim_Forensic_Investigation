@@ -1,0 +1,61 @@
+{
+    "dataset": "PaySim",
+    "rows": 6362620,
+    "columns": 11,
+    "column_names": [
+        "step",
+        "type",
+        "amount",
+        "nameOrig",
+        "oldbalanceOrg",
+        "newbalanceOrig",
+        "nameDest",
+        "oldbalanceDest",
+        "newbalanceDest",
+        "isFraud",
+        "isFlaggedFraud"
+    ],
+    "missing_values": {
+        "step": 0,
+        "type": 0,
+        "amount": 0,
+        "nameOrig": 0,
+        "oldbalanceOrg": 0,
+        "newbalanceOrig": 0,
+        "nameDest": 0,
+        "oldbalanceDest": 0,
+        "newbalanceDest": 0,
+        "isFraud": 0,
+        "isFlaggedFraud": 0
+    },
+    "total_missing_values": 0,
+    "duplicate_rows": 0,
+    "fraud_distribution": {
+        "0": 6354407,
+        "1": 8213
+    },
+    "transaction_types": {
+        "CASH_OUT": 2237500,
+        "PAYMENT": 2151495,
+        "CASH_IN": 1399284,
+        "TRANSFER": 532909,
+        "DEBIT": 41432
+    },
+    "unique_source_accounts": 6353307,
+    "unique_destination_accounts": 2722362,
+    "step_range": {
+        "minimum": 1,
+        "maximum": 743,
+        "unique_steps": 743
+    },
+    "amount": {
+        "minimum": 0.0,
+        "maximum": 92445516.64,
+        "mean": 179861.90354913071,
+        "median": 74871.94
+    },
+    "is_flagged_fraud": {
+        "0": 6362604,
+        "1": 16
+    }
+}

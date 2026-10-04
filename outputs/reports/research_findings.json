@@ -1,0 +1,120 @@
+{
+    "step": 10,
+    "title": "Research Results and Findings",
+    "research_question": "How can analytical outputs from financial fraud detection be systematically converted into evidence-linked investigative cases, and how can the completeness and traceability of those cases be evaluated?",
+    "research_answer": "The implemented workflow converts analytically suspicious transactions into structured forensic cases by using each suspicious transaction as an investigation seed, linking related transactional evidence through account relationships within a defined temporal window, and recording the resulting evidence and findings with source transaction references. On the PaySim dataset, the final configuration produced 480 candidate cases with 100.00% structural case completeness and 100.00% seed traceability, 100.00% evidence traceability and 100.00% finding traceability. However, only 11 cases (2.29%) received additional contextual evidence, showing that the available transactional dataset and reconstruction rules provide strong source traceability but limited contextual enrichment.",
+    "final_configuration": {
+        "model": "Audited Random Forest",
+        "threshold": 0.95,
+        "temporal_window_steps": 24
+    },
+    "core_results": {
+        "suspicious_seeds": 480,
+        "candidate_cases": 480,
+        "complete_cases": 480,
+        "case_completeness_percent": 100.0,
+        "cases_with_context": 11,
+        "context_enrichment_percent": 2.2917,
+        "total_evidence_records": 491,
+        "seed_evidence_records": 480,
+        "contextual_evidence_records": 11,
+        "context_evidence_ratio_percent": 2.2403,
+        "average_evidence_per_case": 1.0229,
+        "average_contextual_evidence_per_case": 0.0229,
+        "seed_traceability_percent": 100.0,
+        "evidence_traceability_percent": 100.0,
+        "finding_traceability_percent": 100.0,
+        "multi_seed_cases": 0
+    },
+    "findings": [
+        {
+            "finding_id": "F1",
+            "category": "Fraud Detection",
+            "finding": "The audited Random Forest provided the predictive basis for identifying suspicious transactions for subsequent forensic case reconstruction.",
+            "evidence": "Audited model comparison and final prediction output.",
+            "interpretation": "The machine-learning stage was used as a seed-generation stage rather than as proof of criminal activity."
+        },
+        {
+            "finding_id": "F2",
+            "category": "Suspicious Transaction Identification",
+            "finding": "480 transactions were flagged as suspicious using the frozen threshold.",
+            "evidence": "Threshold = 0.95; 480 suspicious seeds.",
+            "interpretation": "These transactions represent analytical investigation seeds and require contextual interpretation."
+        },
+        {
+            "finding_id": "F3",
+            "category": "Forensic Case Reconstruction",
+            "finding": "480 candidate forensic cases were constructed from the suspicious transaction seeds.",
+            "evidence": "480 candidate cases generated.",
+            "interpretation": "The reconstruction stage converted individual analytical alerts into structured case representations."
+        },
+        {
+            "finding_id": "F4",
+            "category": "Case Completeness",
+            "finding": "480 of 480 cases were structurally complete, giving a completeness rate of 100.00% .",
+            "evidence": "Each case contains case, seed, evidence and finding references required by the case representation.",
+            "interpretation": "This demonstrates structural completeness of the generated case records, not completeness of all possible real-world forensic evidence."
+        },
+        {
+            "finding_id": "F5",
+            "category": "Contextual Evidence",
+            "finding": "11 of 480 cases received additional contextual evidence, corresponding to 2.29% contextual enrichment.",
+            "evidence": "\u00b124 PaySim-step reconstruction window.",
+            "interpretation": "Most suspicious seeds remained isolated under the current account-relationship and temporal rules."
+        },
+        {
+            "finding_id": "F6",
+            "category": "Evidence Coverage",
+            "finding": "The final case collection contains 491 evidence records: 480 suspicious-seed records and 11 contextual records.",
+            "evidence": "Contextual evidence ratio = 2.24% .",
+            "interpretation": "The evidence collection is dominated by the original analytical seed transactions rather than additional contextual transactions."
+        },
+        {
+            "finding_id": "F7",
+            "category": "Evidence Traceability",
+            "finding": "Seed, evidence and finding traceability each reached 100%.",
+            "evidence": "Seed traceability = 100.00%; Evidence traceability = 100.00%; Finding traceability = 100.00%.",
+            "interpretation": "Every generated seed, evidence transaction and investigative finding can be linked back to its recorded transactional source within the available dataset."
+        },
+        {
+            "finding_id": "F8",
+            "category": "Relational Reconstruction",
+            "finding": "No multi-seed cases were formed; 0 multi-seed cases were identified.",
+            "evidence": "Multi-seed case rate = 0.00% .",
+            "interpretation": "The tested account relationship and temporal rules did not connect multiple suspicious seeds into common cases."
+        },
+        {
+            "finding_id": "F9",
+            "category": "Sensitivity Analysis",
+            "finding": "Among the tested temporal windows, \u00b124 steps produced the highest contextual enrichment of 2.29% .",
+            "evidence": "Window sensitivity experiment using identical suspicious seeds and account relationship rules.",
+            "interpretation": "Increasing the tested temporal window increased the observed contextual coverage, but contextual enrichment remained limited."
+        }
+    ],
+    "limitations": [
+        {
+            "limitation_id": "L1",
+            "limitation": "PaySim is a synthetic financial transaction dataset and does not represent complete real-world banking forensic evidence."
+        },
+        {
+            "limitation_id": "L2",
+            "limitation": "The dataset does not contain external artifacts such as IP addresses, devices, authentication logs, emails or CCTV data."
+        },
+        {
+            "limitation_id": "L3",
+            "limitation": "PaySim step values represent simulated temporal steps rather than exact real-world timestamps."
+        },
+        {
+            "limitation_id": "L4",
+            "limitation": "The current reconstruction approach is based on transactional account relationships and a temporal window."
+        },
+        {
+            "limitation_id": "L5",
+            "limitation": "Structural case completeness should not be interpreted as complete real-world forensic evidence coverage."
+        },
+        {
+            "limitation_id": "L6",
+            "limitation": "A suspicious analytical seed does not establish that a person or account committed a crime."
+        }
+    ]
+}

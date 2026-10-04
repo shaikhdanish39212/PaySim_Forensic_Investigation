@@ -1,0 +1,41 @@
+{
+    "experiment": "Step 7 - Evidence Coverage, Case Completeness and Traceability",
+    "input": {
+        "candidate_cases": "outputs/cases/candidate_forensic_cases.csv",
+        "case_evidence": "outputs/cases/case_evidence.csv",
+        "case_seeds": "outputs/cases/case_seeds.csv",
+        "source_transactions": "data/processed/paysim_preprocessed.csv"
+    },
+    "case_statistics": {
+        "total_candidate_cases": 480,
+        "cases_with_context": 11,
+        "cases_without_context": 469,
+        "structurally_complete_cases": 480
+    },
+    "evidence_statistics": {
+        "total_evidence_records": 491,
+        "suspicious_seed_records": 480,
+        "contextual_evidence_records": 11,
+        "average_evidence_per_case": 1.0229166666666667,
+        "average_context_per_case": 0.022916666666666665
+    },
+    "traceability_metrics": {
+        "seed_traceability_rate": 1.0,
+        "evidence_traceability_rate": 1.0,
+        "finding_traceability_rate": 1.0
+    },
+    "reconstruction_metrics": {
+        "context_enrichment_rate": 0.022916666666666665,
+        "context_evidence_ratio": 0.02240325865580448,
+        "case_completeness_rate": 1.0
+    },
+    "metric_definitions": {
+        "seed_traceability": "Percentage of suspicious seed transactions that have a corresponding evidence record.",
+        "evidence_traceability": "Percentage of evidence records whose transaction ID and original row reference both map back to the source transaction table.",
+        "finding_traceability": "Percentage of case findings linked to at least one valid source evidence transaction.",
+        "context_enrichment": "Percentage of candidate cases containing at least one contextual evidence transaction.",
+        "case_completeness": "Percentage of cases containing the required structural case fields.",
+        "context_evidence_ratio": "Contextual evidence records divided by all evidence records."
+    },
+    "important_limitation": "Evidence coverage cannot be interpreted as complete real-world forensic evidence coverage because PaySim contains transactional data only and has no external artifacts such as device, IP, authentication, email or CCTV evidence."
+}

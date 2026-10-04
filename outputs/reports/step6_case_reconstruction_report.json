@@ -1,0 +1,46 @@
+{
+    "experiment": "Step 6 - Contextual Evidence and Candidate Forensic Case Reconstruction",
+    "input": {
+        "prediction_file": "outputs/predictions/paysim_transaction_predictions.csv",
+        "transaction_file": "data/processed/paysim_preprocessed.csv"
+    },
+    "configuration": {
+        "context_window_steps": 24,
+        "context_window_description": "Approximately +/- 24 simulated hours because PaySim step represents one hour",
+        "minimum_case_transactions": 2,
+        "maximum_context_per_seed": 5000
+    },
+    "seeds": {
+        "total_suspicious_seeds": 480,
+        "seed_step_min": 407,
+        "seed_step_max": 729
+    },
+    "cases": {
+        "candidate_case_count": 480,
+        "cases_with_context": 11,
+        "cases_with_multiple_seeds": 0,
+        "unique_evidence_transactions": 491
+    },
+    "relationship_rule": {
+        "same_origin": true,
+        "same_destination": true,
+        "origin_destination_cross_relation": true,
+        "temporal_window": 24
+    },
+    "terminology": {
+        "case_type": "Candidate forensic case",
+        "seed_definition": "ML-flagged suspicious transaction",
+        "finding_definition": "Suspicious transactional pattern requiring further investigation",
+        "guilt_claim": false
+    },
+    "traceability_preparation": {
+        "transaction_ids_preserved": true,
+        "original_row_numbers_preserved": true,
+        "source_transaction_references_preserved": true
+    },
+    "outputs": {
+        "case_summary": "outputs/cases/candidate_forensic_cases.csv",
+        "case_evidence": "outputs/cases/case_evidence.csv",
+        "case_seeds": "outputs/cases/case_seeds.csv"
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "experiment": "Step 8 - Reconstruction Window Sensitivity",
+    "windows_tested": [
+        1,
+        6,
+        12,
+        24
+    ],
+    "fixed_components": {
+        "prediction_file": "outputs/predictions/paysim_transaction_predictions.csv",
+        "source_file": "data/processed/paysim_preprocessed.csv",
+        "suspicious_seed_count": 480,
+        "relationship_rule": [
+            "same origin account",
+            "same destination account",
+            "origin-destination cross relationship"
+        ]
+    },
+    "variable": "Temporal context window in PaySim steps",
+    "results": [
+        {
+            "window_steps": 1,
+            "window_hours_approx": 1,
+            "total_suspicious_seeds": 480,
+            "candidate_cases": 480,
+            "cases_with_context": 2,
+            "cases_without_context": 478,
+            "context_enrichment_rate": 0.004166666666666667,
+            "seeds_with_context": 2,
+            "seed_context_rate": 0.004166666666666667,
+            "multi_seed_cases": 0,
+            "multi_seed_case_rate": 0.0,
+            "context_transactions": 2,
+            "total_case_transactions": 482,
+            "average_evidence_per_case": 1.0041666666666667,
+            "average_context_per_case": 0.004166666666666667
+        },
+        {
+            "window_steps": 6,
+            "window_hours_approx": 6,
+            "total_suspicious_seeds": 480,
+            "candidate_cases": 480,
+            "cases_with_context": 3,
+            "cases_without_context": 477,
+            "context_enrichment_rate": 0.00625,
+            "seeds_with_context": 3,
+            "seed_context_rate": 0.00625,
+            "multi_seed_cases": 0,
+            "multi_seed_case_rate": 0.0,
+            "context_transactions": 3,
+            "total_case_transactions": 483,
+            "average_evidence_per_case": 1.00625,
+            "average_context_per_case": 0.00625
+        },
+        {
+            "window_steps": 12,
+            "window_hours_approx": 12,
+            "total_suspicious_seeds": 480,
+            "candidate_cases": 480,
+            "cases_with_context": 5,
+            "cases_without_context": 475,
+            "context_enrichment_rate": 0.010416666666666666,
+            "seeds_with_context": 5,
+            "seed_context_rate": 0.010416666666666666,
+            "multi_seed_cases": 0,
+            "multi_seed_case_rate": 0.0,
+            "context_transactions": 5,
+            "total_case_transactions": 485,
+            "average_evidence_per_case": 1.0104166666666667,
+            "average_context_per_case": 0.010416666666666666
+        },
+        {
+            "window_steps": 24,
+            "window_hours_approx": 24,
+            "total_suspicious_seeds": 480,
+            "candidate_cases": 480,
+            "cases_with_context": 11,
+            "cases_without_context": 469,
+            "context_enrichment_rate": 0.022916666666666665,
+            "seeds_with_context": 11,
+            "seed_context_rate": 0.022916666666666665,
+            "multi_seed_cases": 0,
+            "multi_seed_case_rate": 0.0,
+            "context_transactions": 11,
+            "total_case_transactions": 491,
+            "average_evidence_per_case": 1.0229166666666667,
+            "average_context_per_case": 0.022916666666666665
+        }
+    ],
+    "interpretation_guidance": "Increasing the temporal window may increase contextual evidence and case connectivity, but may also introduce less directly relevant transactions. The experiment measures this trade-off descriptively.",
+    "limitation": "PaySim provides transactional data only. The sensitivity experiment therefore evaluates transactional reconstruction, not completeness of real-world digital forensic evidence."
+}

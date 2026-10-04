@@ -1,0 +1,20 @@
+metric,value,unit
+Suspicious seeds,480.0,count
+Candidate forensic cases,480.0,count
+Structurally complete cases,480.0,count
+Case completeness rate,100.0,percent
+Cases with contextual evidence,11.0,count
+Context enrichment rate,2.2917,percent
+Total evidence records,491.0,count
+Suspicious-seed evidence records,480.0,count
+Contextual evidence records,11.0,count
+Context evidence ratio,2.2403,percent
+Average evidence per case,1.0229,records/case
+Average contextual evidence per case,0.0229,records/case
+Seed traceability,100.0,percent
+Evidence traceability,100.0,percent
+Finding traceability,100.0,percent
+Multi-seed cases,0.0,count
+Multi-seed case rate,0.0,percent
+Final reconstruction window,24.0,PaySim steps (+/-)
+Final suspicion threshold,0.95,probability

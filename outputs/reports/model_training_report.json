@@ -1,0 +1,141 @@
+{
+    "experiment": "Step 4 - Fraud Model Training",
+    "dataset": {
+        "input_file": "data/processed/paysim_features.csv",
+        "total_rows": 6362620,
+        "total_columns": 46,
+        "total_fraud": 8213
+    },
+    "temporal_split": {
+        "train_end_step": 323,
+        "validation_end_step": 399,
+        "test_start_step": 400
+    },
+    "rows": {
+        "train_available": 4463587,
+        "train_model": 303643,
+        "validation": 1292533,
+        "test": 606500
+    },
+    "training_sampling": {
+        "all_training_fraud_used": true,
+        "maximum_genuine_training": 300000,
+        "random_state": 42,
+        "note": "A reproducible genuine-transaction sample is used for computationally practical model development. Validation and test sets are complete."
+    },
+    "feature_configuration": {
+        "number_of_features": 33,
+        "features": [
+            "step",
+            "amount",
+            "log_amount",
+            "sqrt_amount",
+            "step_hour",
+            "step_day",
+            "type_CASH_IN",
+            "type_CASH_OUT",
+            "type_DEBIT",
+            "type_PAYMENT",
+            "type_TRANSFER",
+            "orig_prev_count",
+            "orig_prev_total_amount",
+            "orig_prev_avg_amount",
+            "orig_unique_destinations",
+            "dest_prev_count",
+            "dest_prev_total_amount",
+            "dest_prev_avg_amount",
+            "orig_prev_step",
+            "orig_step_gap",
+            "dest_prev_step",
+            "dest_step_gap",
+            "orig_prev_amount",
+            "orig_prev2_amount",
+            "orig_prev3_amount",
+            "dest_prev_amount",
+            "dest_prev2_amount",
+            "dest_prev3_amount",
+            "orig_has_history",
+            "dest_has_history",
+            "orig_balance_change",
+            "dest_balance_change",
+            "orig_amount_balance_ratio"
+        ],
+        "excluded_features": [
+            "dest_prev_type",
+            "isFlaggedFraud",
+            "isFraud",
+            "nameDest",
+            "nameOrig",
+            "newbalanceDest",
+            "newbalanceOrig",
+            "oldbalanceDest",
+            "oldbalanceOrg",
+            "orig_prev_type",
+            "original_row_number",
+            "transaction_id",
+            "type"
+        ]
+    },
+    "models": {
+        "logistic_regression": {
+            "validation": {
+                "model": "Logistic Regression",
+                "threshold": 0.5,
+                "accuracy": 0.9662909960519384,
+                "precision": 0.017253839205058717,
+                "recall": 0.9339853300733496,
+                "f1": 0.033881768592842254,
+                "roc_auc": 0.9921037238196444,
+                "pr_auc": 0.5130276824602256,
+                "true_negative": 1248199,
+                "false_positive": 43516,
+                "false_negative": 54,
+                "true_positive": 764
+            },
+            "test": {
+                "model": "Logistic Regression",
+                "threshold": 0.5,
+                "accuracy": 0.9614212695795549,
+                "precision": 0.1322351179333583,
+                "recall": 0.94136460554371,
+                "f1": 0.2318954763311667,
+                "roc_auc": 0.9914653299048849,
+                "pr_auc": 0.726386796665123,
+                "true_negative": 579570,
+                "false_positive": 23178,
+                "false_negative": 220,
+                "true_positive": 3532
+            }
+        },
+        "random_forest": {
+            "validation": {
+                "model": "Random Forest",
+                "threshold": 0.5,
+                "accuracy": 0.9999458427753876,
+                "precision": 0.9240362811791383,
+                "recall": 0.9963325183374083,
+                "f1": 0.9588235294117647,
+                "roc_auc": 0.9999985529368676,
+                "pr_auc": 0.9983391408056712,
+                "true_negative": 1291648,
+                "false_positive": 67,
+                "false_negative": 3,
+                "true_positive": 815
+            },
+            "test": {
+                "model": "Random Forest",
+                "threshold": 0.5,
+                "accuracy": 0.9999439406430338,
+                "precision": 0.9928419936373277,
+                "recall": 0.9981343283582089,
+                "f1": 0.9954811270600744,
+                "roc_auc": 0.9999936029481067,
+                "pr_auc": 0.9997240592533829,
+                "true_negative": 602721,
+                "false_positive": 27,
+                "false_negative": 7,
+                "true_positive": 3745
+            }
+        }
+    }
+}

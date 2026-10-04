@@ -1,0 +1,39 @@
+# Python & Virtual Environments
+backend/venv/
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Node & Frontend Build
+frontend/node_modules/
+frontend/dist/
+.oxlint/
+.vite/
+
+# Datasets and Large Binary Files (>100MB rejected by GitHub)
+data/raw/
+data/processed/
+outputs/predictions/
+*.csv
+!outputs/reports/*.csv
+!outputs/cases/*.csv
+
+# Logs & Databases
+*.log
+*.sqlite3
+*.db
+
+# Environment & IDE
+.env
+.env.local
+.env.*.local
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

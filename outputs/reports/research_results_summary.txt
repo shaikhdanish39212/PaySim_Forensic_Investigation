@@ -1,0 +1,60 @@
+RESEARCH RESULTS SUMMARY
+========================
+
+Research Question
+-----------------
+How can analytical outputs from financial fraud detection be systematically converted into evidence-linked investigative cases, and how can the completeness and traceability of those cases be evaluated?
+
+Final Configuration
+-------------------
+Model: Audited Random Forest
+Suspicion threshold: 0.95
+Reconstruction window: +/- 24 PaySim steps
+
+Detection / Seed Generation
+---------------------------
+Suspicious transaction seeds: 480
+
+Forensic Case Reconstruction
+----------------------------
+Candidate cases: 480
+Structurally complete cases: 480
+Case completeness: 100.00%
+
+Contextual Evidence
+-------------------
+Cases with contextual evidence: 11
+Context enrichment: 2.29%
+Total evidence records: 491
+Suspicious-seed evidence: 480
+Contextual evidence: 11
+Context evidence ratio: 2.24%
+
+Traceability
+------------
+Seed traceability: 100.00%
+Evidence traceability: 100.00%
+Finding traceability: 100.00%
+
+Relational Reconstruction
+-------------------------
+Multi-seed cases: 0
+Multi-seed case rate: 0.00%
+
+Research Question Answer
+------------------------
+The implemented workflow converts analytically suspicious transactions into structured forensic cases by using each suspicious transaction as an investigation seed, linking related transactional evidence through account relationships within a defined temporal window, and recording the resulting evidence and findings with source transaction references. On the PaySim dataset, the final configuration produced 480 candidate cases with 100.00% structural case completeness and 100.00% seed traceability, 100.00% evidence traceability and 100.00% finding traceability. However, only 11 cases (2.29%) received additional contextual evidence, showing that the available transactional dataset and reconstruction rules provide strong source traceability but limited contextual enrichment.
+
+Important Interpretation
+------------------------
+The results demonstrate a reproducible method for converting
+analytical fraud-detection outputs into structured,
+evidence-linked transactional forensic cases.
+
+The results do not demonstrate complete real-world forensic
+investigation because PaySim does not contain external digital
+artifacts. The low contextual enrichment rate is therefore
+reported as an empirical limitation of the current dataset and
+reconstruction configuration rather than being interpreted as
+evidence that real-world investigations would have similarly
+limited context.
