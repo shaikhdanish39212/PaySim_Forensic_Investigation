@@ -1,124 +1,592 @@
-# PaySim Forensic Investigation & Cybercrime Analysis
+# PaySim Forensic Investigation
 
-A comprehensive machine learning, transaction reconstruction, and digital forensic investigation platform for financial cybercrime analysis on mobile money networks using the PaySim synthetic dataset.
+## Role of Digital Forensics in Banking and Financial Cybercrime Investigation
+
+A research implementation for detecting suspicious financial transactions and transforming machine-learning outputs into structured, evidence-linked forensic investigation cases.
+
+The project combines **machine learning-based fraud detection** with a **digital forensic reconstruction workflow** using the PaySim financial transaction dataset.
 
 ---
 
 ## 📌 Project Overview
 
-This repository contains an end-to-end research framework and web application designed to detect, reconstruct, and evaluate fraudulent financial transaction networks. The project bridges traditional machine learning fraud detection with forensic case reconstruction to assist cybercrime investigators.
+Financial fraud detection systems generally focus on identifying suspicious transactions. However, identifying a suspicious transaction is only the beginning of a forensic investigation.
 
-### Key Features
-* **10-Step Automated Forensic Pipeline**: From raw dataset ingestion and feature engineering to model training, threshold search, case reconstruction, evaluation, and window sensitivity analysis.
-* **Audited ML Models**: Logistic Regression and Random Forest models tuned with decision threshold optimization for high-precision fraud identification.
-* **Forensic Case Reconstruction**: Algorithmic grouping of fraud seeds, transaction chains, and supporting evidence.
-* **FastAPI Backend**: REST API delivering case data, model performance metrics, evidence chains, and research summaries.
-* **React + Vite Forensic Dashboard**: Modern interactive UI with dark mode, real-time filtering, risk analysis, and visual case investigation tools.
+This project investigates a workflow that converts analytical fraud-detection outputs into structured investigative cases through:
+
+```text
+Transaction Data
+      ↓
+Data Preprocessing
+      ↓
+Feature Engineering
+      ↓
+Fraud Detection
+      ↓
+Suspicious Transaction Seeds
+      ↓
+Temporal & Account-Based Reconstruction
+      ↓
+Forensic Cases
+      ↓
+Evidence Mapping
+      ↓
+Traceable Findings
+      ↓
+Forensic Evaluation
+```
+
+The system evaluates not only fraud-detection performance but also the **completeness, contextual enrichment, and traceability of reconstructed forensic cases**.
 
 ---
 
-## 📁 Repository Structure
+## 🎯 Research Objectives
 
+The project aims to:
+
+1. Identify suspicious financial transactions using machine learning.
+2. Construct structured forensic investigation cases from suspicious transaction seeds.
+3. Use temporal and account relationships to reconstruct transaction context.
+4. Map investigative findings to supporting evidence records.
+5. Evaluate evidence and finding traceability.
+6. Measure the sensitivity of forensic reconstruction to different temporal investigation windows.
+
+---
+
+## 🔬 Research Question
+
+> **How can analytical outputs from financial fraud detection be systematically converted into evidence-linked investigative cases, and how can the completeness and traceability of those cases be evaluated?**
+
+---
+
+## 🗃️ Dataset
+
+### PaySim
+
+The project uses the **PaySim synthetic financial transaction dataset**.
+
+Dataset characteristics used in the implementation:
+
+| Property | Value |
+|---|---:|
+| Total transactions | 6,362,620 |
+| Fraudulent transactions | 8,213 |
+| Genuine transactions | 6,354,407 |
+| Fraud rate | 0.1291% |
+| Original attributes | 11 |
+| Missing values | 0 |
+| Duplicate rows | 0 |
+| Transaction steps | 1–743 |
+
+PaySim represents simulated mobile-money transactions and contains transaction-level financial and account information.
+
+### Dataset availability
+
+The raw PaySim CSV is **not included in this repository** because of its large size.
+
+Place the dataset inside:
+
+```text
+data/raw/
 ```
+
+The implementation scripts expect the dataset to be available locally before running the complete pipeline.
+
+---
+
+# 🧠 Methodology
+
+The implementation follows a leakage-audited machine-learning and forensic reconstruction workflow.
+
+## 1. Dataset Inspection
+
+The raw dataset is inspected for:
+
+- Dataset dimensions
+- Missing values
+- Duplicate records
+- Transaction types
+- Fraud distribution
+- Account relationships
+- Temporal characteristics
+
+---
+
+## 2. Preprocessing
+
+The preprocessing stage:
+
+- Preserves the original transaction information.
+- Creates deterministic transaction identifiers.
+- Maintains original row references.
+- Verifies temporal ordering.
+- Prepares the dataset for reproducible analysis.
+
+---
+
+## 3. Feature Engineering
+
+Historical and transaction-level features are generated while avoiding future information leakage.
+
+The final audited feature set excludes inappropriate variables such as:
+
+- Target variable
+- Raw account identifiers
+- Balance-derived leakage variables
+- Other variables that could expose future transaction information
+
+---
+
+## 4. Fraud Detection
+
+Two machine-learning models were evaluated:
+
+- Logistic Regression
+- Random Forest
+
+The dataset was divided using a **temporal train-validation-test split**.
+
+### Temporal split
+
+| Dataset | PaySim Steps |
+|---|---|
+| Training | 1–323 |
+| Validation | 324–399 |
+| Testing | 400–743 |
+
+The final forensic seed-generation process uses a Random Forest model.
+
+---
+
+## 5. Suspicious Transaction Generation
+
+The Random Forest model produces fraud probabilities.
+
+A suspicion threshold of:
+
+```text
+0.95
+```
+
+was selected using the validation set based on maximum F1-score and then frozen before evaluating the test data.
+
+Transactions exceeding this threshold are treated as **suspicious investigation seeds**, not as confirmed criminal transactions.
+
+---
+
+## 6. Forensic Case Reconstruction
+
+Each suspicious transaction is converted into a structured investigation case.
+
+Contextual transactions are searched using:
+
+- Temporal proximity
+- Same source account
+- Same destination account
+- Relevant source/destination relationships
+
+The primary reconstruction window used in the final evaluation is:
+
+```text
+±24 PaySim steps
+```
+
+---
+
+## 7. Evidence Traceability
+
+The investigation maintains explicit relationships between:
+
+```text
+Finding
+   ↓
+Evidence Record
+   ↓
+Transaction ID
+   ↓
+Original PaySim Record
+```
+
+This allows every reconstructed finding to be traced back to its supporting transaction evidence.
+
+---
+
+# 📊 Model Results
+
+The audited models were evaluated using accuracy, precision, recall, F1-score, ROC-AUC and PR-AUC.
+
+| Model | Accuracy | Precision | Recall | F1 | ROC-AUC | PR-AUC |
+|---|---:|---:|---:|---:|---:|---:|
+| Logistic Regression | 82.33% | 3.12% | 91.58% | 6.03% | 0.9426 | 0.2125 |
+| Random Forest | 98.30% | 23.87% | 79.82% | 36.75% | 0.9703 | 0.3153 |
+
+The Random Forest model achieved the strongest overall performance and was selected for the forensic reconstruction workflow.
+
+---
+
+# 🔎 Final Forensic Results
+
+Using the frozen suspicion threshold of **0.95**:
+
+| Metric | Result |
+|---|---:|
+| Suspicious seeds | 480 |
+| Candidate forensic cases | 480 |
+| Contextual evidence cases | 11 |
+| Evidence records | 491 |
+| Structural completeness | 100% |
+| Seed traceability | 100% |
+| Evidence traceability | 100% |
+| Finding traceability | 100% |
+| Contextual enrichment | 2.29% |
+| Multi-seed cases | 0 |
+
+The results show that all suspicious seeds were successfully converted into structurally complete cases and maintained complete source-to-finding traceability.
+
+However, only **11 of 480 cases (2.29%)** received additional contextual transaction evidence within the tested reconstruction window.
+
+---
+
+# ⏱️ Temporal Window Sensitivity
+
+The effect of different investigation windows was evaluated without retraining the model or changing the suspicion threshold.
+
+| Window | Contextual Cases | Context Enrichment |
+|---|---:|---:|
+| ±1 step | 2 | 0.42% |
+| ±6 steps | 3 | 0.62% |
+| ±12 steps | 5 | 1.04% |
+| ±24 steps | 11 | 2.29% |
+
+The **±24-step window** produced the highest contextual enrichment among the tested windows.
+
+This does not imply that ±24 steps is universally optimal for real-world investigations.
+
+---
+
+# 🖥️ Research Demonstration Website
+
+The project also includes a web-based demonstration interface for presenting the research implementation and results.
+
+### Technology Stack
+
+**Frontend**
+- React.js
+- JavaScript (ES6)
+- HTML5
+- CSS3
+- Tailwind CSS
+
+**Backend**
+- Python
+- FastAPI
+
+**Machine Learning / Research**
+- Python
+- Scikit-learn
+- Pandas
+- NumPy
+
+### Main Website Sections
+
+```text
+Dashboard
+    ↓
+Methodology
+    ↓
+Fraud Detection
+    ↓
+Suspicious Transactions
+    ↓
+Forensic Cases
+    ↓
+Evidence Traceability
+    ↓
+Window Sensitivity
+    ↓
+Research Results
+```
+
+The website is a **research demonstration layer**. It presents the outputs of the research implementation and does not replace the underlying Python research pipeline.
+
+---
+
+# 📁 Project Structure
+
+```text
 PaySim_Forensic_Investigation/
-├── src/                          # Forensic Analysis & ML Pipeline Scripts
-│   ├── 01_dataset_inspection.py  # Data validation & summary stats
-│   ├── 02_preprocess.py          # Data cleaning & encoding
-│   ├── 03_feature_engineering.py # Financial network & velocity features
-│   ├── 04_train_models.py        # Model training & auditing
-│   ├── 05_generate_predictions.py# Prediction generation
-│   ├── 06_reconstruct_cases.py   # Transaction network case reconstruction
-│   ├── 07_evaluate_cases.py      # Case-level precision & recall evaluation
-│   ├── 08_window_sensitivity.py # Sensitivity analysis on time windows
-│   ├── 09_evaluation.py          # Final forensic metric evaluation
-│   └── 10_research_results.py    # Summary report generator
-├── backend/                      # FastAPI Backend Service
-│   ├── main.py                   # REST API routes and data loaders
-│   └── requirements.txt          # Python dependencies
-├── frontend/                     # React + Vite Frontend Application
-│   ├── src/                      # Components, pages, and dynamic styling
-│   ├── package.json              # Node dependencies
-│   └── vite.config.js            # Vite build configuration
-├── outputs/                      # Generated Reports & Audited Models
-│   ├── cases/                    # Reconstructed case summaries and evidence
-│   ├── models/                   # Serialized ML models (.joblib)
-│   └── reports/                  # JSON & CSV performance reports
-└── README.md                     # Project documentation
+│
+├── backend/
+│   ├── main.py
+│   ├── requirements.txt
+│   └── ...
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── package-lock.json
+│   └── ...
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── outputs/
+│   ├── models/
+│   ├── predictions/
+│   ├── cases/
+│   ├── figures/
+│   └── reports/
+│
+├── src/
+│   ├── 01_dataset_inspection.py
+│   ├── 02_preprocess.py
+│   ├── 03_feature_engineering.py
+│   ├── 04_train_models.py
+│   ├── 05_generate_predictions.py
+│   ├── 06_reconstruct_cases.py
+│   ├── 07_evaluate_cases.py
+│   ├── 08_window_sensitivity.py
+│   ├── 09_evaluation.py
+│   └── 10_research_results.py
+│
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
 ---
 
-## 🚀 Getting Started
+# ⚙️ Installation
 
-### Prerequisites
-* **Python 3.10+**
-* **Node.js 18+** & **npm**
+## Prerequisites
+
+Make sure the following are installed:
+
+- Python 3.11+
+- Node.js
+- npm
+- Git
 
 ---
 
-### 1. Data Setup
-
-Download the PaySim synthetic financial dataset from Kaggle (`PS_20174392719_1491204439457_log.csv`) and place it in the `data/raw/` directory:
-```
-data/raw/PS_20174392719_1491204439457_log.csv
-```
-
-### 2. Backend Setup & Pipeline Execution
+## 1. Clone the Repository
 
 ```bash
-# Navigate to backend directory
+git clone https://github.com/YOUR_USERNAME/PaySim-Forensic-Investigation.git
+cd PaySim-Forensic-Investigation
+```
+
+---
+
+# 🐍 Backend Setup
+
+Navigate to the backend directory:
+
+```bash
 cd backend
-
-# Create & activate a virtual environment
-python -m venv venv
-# On Windows:
-.\venv\Scripts\activate
-# On Linux/macOS:
-# source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the FastAPI server
-uvicorn main:app --reload --port 8000
 ```
-The API documentation will be available at [http://localhost:8000/docs](http://localhost:8000/docs).
 
-### 3. Frontend Setup
+Create a Python virtual environment:
 
 ```bash
-# Navigate to frontend directory
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the FastAPI server:
+
+```bash
+uvicorn main:app --reload
+```
+
+The backend will normally be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# ⚛️ Frontend Setup
+
+Open another terminal.
+
+Navigate to the frontend:
+
+```bash
 cd frontend
+```
 
-# Install dependencies
+Install dependencies:
+
+```bash
 npm install
+```
 
-# Start development server
+Start the development server:
+
+```bash
 npm run dev
 ```
-The investigation dashboard will open at [http://localhost:5173](http://localhost:5173).
 
----
+The frontend will normally be available at:
 
-## 🧪 Forensic Pipeline Steps
-
-To re-run the complete pipeline from scratch:
-```bash
-python src/01_dataset_inspection.py
-python src/02_preprocess.py
-python src/03_feature_engineering.py
-python src/04_train_models.py
-python src/05_generate_predictions.py
-python src/06_reconstruct_cases.py
-python src/07_evaluate_cases.py
-python src/08_window_sensitivity.py
-python src/09_evaluation.py
-python src/10_research_results.py
+```text
+http://localhost:5173
 ```
 
 ---
 
-## 📜 License & Citation
+# 🧪 Running the Research Pipeline
 
-Developed for M.Sc. Computer Science / Forensic Research on Financial Cybercrime Investigation.
-Dataset Source: PaySim Synthetic Financial Datasets (Kaggle).
+The research scripts are organized sequentially:
+
+```text
+01_dataset_inspection.py
+        ↓
+02_preprocess.py
+        ↓
+03_feature_engineering.py
+        ↓
+04_train_models.py
+        ↓
+05_generate_predictions.py
+        ↓
+06_reconstruct_cases.py
+        ↓
+07_evaluate_cases.py
+        ↓
+08_window_sensitivity.py
+        ↓
+09_evaluation.py
+        ↓
+10_research_results.py
+```
+
+Run each stage according to the dataset and output requirements described in the source code.
+
+---
+
+# 📌 Important Research Notes
+
+### Suspicious ≠ Confirmed Fraud
+
+A transaction identified by the machine-learning model is treated as a **suspicious investigation seed**.
+
+The model does not establish criminal liability or prove that a person committed fraud.
+
+### Structural Completeness ≠ Real-World Forensic Completeness
+
+The reported 100% structural completeness means that the generated cases contain the required case structure and seed information.
+
+It does not mean that a real-world investigation would have complete evidence.
+
+### Dataset Limitation
+
+PaySim is a synthetic dataset. It does not provide external forensic artifacts such as:
+
+- IP addresses
+- Device information
+- Email records
+- CCTV footage
+- Authentication logs
+- Bank internal investigation records
+
+Therefore, the forensic reconstruction is limited to the transactional evidence available in PaySim.
+
+---
+
+# ⚠️ Limitations
+
+1. PaySim is a simulated financial transaction dataset.
+2. External forensic evidence is unavailable.
+3. Contextual enrichment was relatively low at 2.29%.
+4. No multi-seed investigation cases were observed.
+5. The ±24-step window was selected based on the tested windows and should not be interpreted as universally optimal.
+6. Machine-learning predictions are investigation seeds rather than proof of criminal activity.
+
+---
+
+# 🔐 Data and Security
+
+The following should **not** be committed to the repository:
+
+```text
+.env
+API keys
+Passwords
+Python virtual environments
+node_modules
+Large raw datasets
+Private credentials
+Large model binaries
+```
+
+The PaySim dataset should be obtained separately and placed in:
+
+```text
+data/raw/
+```
+
+---
+
+# 📚 Research Context
+
+This implementation supports the research study:
+
+> **Role of Digital Forensics in Banking and Financial Cybercrime Investigation**
+
+The research focuses on bridging the gap between:
+
+```text
+Fraud Detection
+       ↓
+Investigation Seeds
+       ↓
+Context Reconstruction
+       ↓
+Evidence Mapping
+       ↓
+Traceable Findings
+```
+
+The primary research contribution is the evaluation of this **detection-to-forensic-case workflow**, rather than simply developing another fraud-classification model.
+
+---
+
+# 👨‍💻 Author
+
+**Danish Shaikh**
+
+M.Sc. Computer Science, Semester I  
+Thakur College of Science & Commerce  
+Mumbai, Maharashtra, India
+
+---
+
+# 📄 Research Paper
+
+The implementation supports the research paper:
+
+**“Role of Digital Forensics in Banking and Financial Cybercrime Investigation”**
+
+The research paper follows an IEEE-style structure and reports the methodology, experimental results, forensic reconstruction analysis, limitations, and conclusions derived from this implementation.
+
+---
+
+## ⭐ Acknowledgement
+
+This project was developed as part of postgraduate academic research in Computer Science, focusing on the intersection of **machine learning, financial fraud detection, and digital forensic investigation**.
